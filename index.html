@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PASSWORD</title>
+        <style>
+            body {
+            background-color: bisque;
+            }
+        </style>
+        <script>
+        function checkPassword() {
+            var password = document.getElementById("passwordBox");
+            var passwordText = password.value;
+            if (passwordText === "amirfort") {
+                return true;
+            }
+            else alert("YOU ARE AN INTRUDER GO AWAY");
+            return false;
+        }
+        </script>
+    </head>
+    <body>
+        <p sttle="font-size: 30pt;">FORTNITE TIPS</p>
+        <p>Please enter the password</p>
+        <p>Password:<input id="passwordBox" type="password"/></p>
+        <a href="file:///D:/_code/python/hello/bridge.html" onclick="return checkPassword();">
+        click to enter
+    </a>
+    </body>
+</html>
