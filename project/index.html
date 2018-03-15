@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>PASSWORD</title>
-        <style>
-            body {
+
+<head>
+    <title>PASSWORD</title>
+    <style>
+        body {
             background-color: bisque;
-            }
-        </style>
-        <script>
+        }
+    </style>
+    <script>
         function checkPassword() {
             var password = document.getElementById("passwordBox");
             var passwordText = password.value;
@@ -17,14 +18,18 @@
             else alert("YOU ARE AN INTRUDER GO AWAY");
             return false;
         }
-        </script>
-    </head>
-    <body>
-        <p sttle="font-size: 30pt;">FORTNITE TIPS</p>
-        <p>Please enter the password</p>
-        <p>Password:<input id="passwordBox" type="password"/></p>
-        <a href="Mission1.html" onclick="return checkPassword();">
+    </script>
+</head>
+
+<body>
+    <p sttle="font-size: 30pt;">FORTNITE TIPS</p>
+    <p>Please enter the password</p>
+    <p>Password:
+        <input id="passwordBox" type="password" />
+    </p>
+    <a href="Mission1.html" onclick="return checkPassword();">
         click to enter
     </a>
-    </body>
+</body>
+
 </html>
