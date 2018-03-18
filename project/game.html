@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GAME!!!!!</title>
+    <style>
+        #board {
+            border: 1px solid black;
+            background-color: darkseagreen;
+            height: 350px;
+            width: 650px;
+        }
+
+        .character {
+            background-color: darkred;
+            width: 120px;
+            height: 120px;
+            padding: 10px;
+            margin: 10px;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" value="play" onclick="startGame()" />
+    <input type="button" value="stop" onclick="stopGame()" />
+
+    <div id="board">
+        <div class="character">1</div>
+        <div class="character">2</div>
+        <div class="character">3</div>
+        <div class="character">4</div>
+        <div class="character">5</div>
+        <div class="character">6</div>
+        <div class="character">7</div>
+        <div class="character">8</div>
+    </div>
+    <script>
+        var timeout = null;
+        function startGame() {
+            gameLoop();
+        }
+        function stopGame() {
+            if (timeout) {
+                clearTimeout(timeout)
+                alert("GAME OVER");
+            }
+        }
+        function gameLoop() {
+            alert("GAME Started");
+            timeout = setTimeout(gameLoop, 3000);
+        }
+    </script>
+</body>
+
+</html>
