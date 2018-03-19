@@ -41,15 +41,15 @@
         function startGame() {
             gameLoop();
         }
-        function stopGame() {
-            if (timeout) {
-                clearTimeout(timeout)
-                alert("GAME OVER");
-            }
-        }
+        var loops = 0;
         function gameLoop() {
-            alert("GAME Started");
-            timeout = setTimeout(gameLoop, 3000);
+            loops++;
+            if(loops < 12) {
+                setTimeout(gameLoop, 3000);
+            }
+            else {
+            alert("GAME over");
+            }
         }
     </script>
 </body>
