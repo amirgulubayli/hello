@@ -4,14 +4,32 @@
 <head>
     <title>GAME!!!!!</title>
     <style>
+        .gbutton {
+            padding: 10px;
+            font-size: 16pt;
+        }
+
+        #button-start {
+            background: lightblue;
+        }
+
+        #button-stop {
+            background: salmon;
+        }
+
         #board {
+            background: url(../img/battle.jpg);
+            background-size: cover;
             border: 1px solid black;
             background-color: darkseagreen;
             height: 350px;
             width: 650px;
+            /* padding-top: 10px; */
         }
 
         .character {
+            background: url(../img/pistol.jpg);
+            background-size: cover;
             background-color: darkred;
             width: 120px;
             height: 120px;
@@ -19,37 +37,113 @@
             margin: 10px;
             float: left;
         }
+
+        .scar {
+            background: url(../img/gun.jpg);
+            background-size: cover;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .visible {
+            display: block;
+        }
+
+        #score-board {
+            background-color: rgb(28, 160, 16);
+            border: black;
+            border-width: 3px;
+            display: inline;
+            padding: 10px;
+            font-size: 16pt;
+            color: white;
+
+        }
     </style>
 </head>
 
 <body>
-    <input type="button" value="play" onclick="startGame()" />
-    <input type="button" value="stop" onclick="stopGame()" />
-
+    <audio id="soundHit" src="../audio/gun.mp3" preload="auto"></audio>
+    <audio id="soundEnd" src="../audio/machine-gun.mp3" preload="auto"></audio>
+    <audio id="soundMiss" src="../audio/throat.mp3" preload="auto"></audio>
+    <input type="button" id="button-start" class="gbutton" value="play" onclick="startGame()" />
+    <input type="button" id="button-stop" class="gbutton" value="stop" onclick="stopGame()" />
+    <div id="score-board"></div>
     <div id="board">
-        <div class="character">1</div>
-        <div class="character">2</div>
-        <div class="character">3</div>
-        <div class="character">4</div>
-        <div class="character">5</div>
-        <div class="character">6</div>
-        <div class="character">7</div>
-        <div class="character">8</div>
+
     </div>
     <script>
         var timeout = null;
+        const gunCount = 8;
+
+        var board = document.getElementById("board");
+        var loops, peopleVisible, gameScore;
+
         function startGame() {
+            loops = 0;
+            peopleVisible = false;
+            gameScore = 0;
+            setBoard()
             gameLoop();
         }
-        var loops = 0;
+
+        function stopGame() {
+            clearTimeout(timeout);
+            document.getElementById('soundEnd').play()
+            gameOverMsg()
+
+        }
+
+        function gameOverMsg() {
+
+            alert("You scored " + gameScore);
+            while (board.hasChildNodes()) {
+                board.removeChild(board.childNodes[0]);
+            }
+        }
+
         function gameLoop() {
+            peopleVisible = !peopleVisible;
+            createCharacters();
             loops++;
-            if(loops < 12) {
-                setTimeout(gameLoop, 3000);
+            if (loops < 12) {
+                timeout = setTimeout(gameLoop, peopleVisible ? 1500 : 2000);
             }
             else {
-            alert("GAME over");
+                gameOverMsg()
             }
+        }
+
+        function setBoard() {
+            for (var index = 0; index < gunCount; index++) {
+                var node = document.createElement("div");
+                node.className = "character";
+                node.innerHTML = index + 1;
+                board.appendChild(node);
+            }
+        }
+
+        function createCharacters() {
+            var scoreBoard = document.getElementById("score-board");
+            var classToSet = peopleVisible ? "character visible" : "character hidden";
+            for (var index = 0; index < gunCount; index++) {
+                board.children[index].className = classToSet;
+                board.children[index].innerHTML = "pistol";
+                board.children[index].onclick = function () {
+                    gameScore += -2;
+                    document.getElementById('soundMiss').play()
+                }
+            }
+            var randomNumber = Math.floor(Math.random() * gunCount) + 1;
+            board.children[randomNumber - 1].innerHTML = "";
+            board.children[randomNumber - 1].onclick = function () {
+                gameScore++;
+                document.getElementById('soundHit').play()
+            }
+            board.children[randomNumber - 1].className = classToSet + " scar";
+            scoreBoard.innerHTML = "Your Score: " + gameScore;
         }
     </script>
 </body>
